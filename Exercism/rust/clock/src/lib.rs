@@ -21,17 +21,9 @@ impl Clock {
     pub fn hour_formater(num: i32) -> String {
         if num >= 24 {
             let module_operator_result = num % 24;
-            format!("{}",zero_formater(module_operator_result))
-                       
+            format!("{:0>2}", module_operator_result)
         }else{
-            format!("{}",zero_formater(num))
+            format!("{:0>2}", num)
         }
-    }
-}
-pub fn zero_formater(num:i32) -> String {
-    if num.to_string().capacity() == 1 {
-        format!("0{}", num.to_string())
-    }else {
-        num.to_string()
     }
 }
