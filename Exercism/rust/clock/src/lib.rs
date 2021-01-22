@@ -10,22 +10,26 @@ impl Clock {
             m: minutes,
         }
     }
-    pub fn to_string(&self) -> String {
-        let mut hour:i32 = self.h;
-        let mut minute:i32 = self.m;
-        
-        if self.m.div_euclid(60) > 0 {
-            hour = hour + self.m.div_euclid(60);
-            minute = self.m.rem_euclid(60);
+    pub fn to_string(&mut self) -> String {
+        if self.m < 0 {
+            let abs_value:i32 = self.m.abs();
+            self.m = 60 - abs_value.rem_euclid(60);
+            if abs_value.div_euclid(60) == 0{
+                self.h = self.h -1;
+            }else{
+                self.h = self.h - (abs_value.div_euclid(60));
+            }
         }
 
-        if self.h.rem_euclid(24) == 0 {
-            return format!("00:{}",Clock::padding_zero(minute)); 
+        if self.m.div_euclid(60) > 0 {
+            self.h = self.h + self.m.div_euclid(60);
+            self.m = self.m.rem_euclid(60);
         }
-        if self.h.rem_euclid(24) > 0{
-            return format!("{}:{}",Clock::padding_zero(hour.rem_euclid(24)),Clock::padding_zero(minute));
+
+        if self.h.rem_euclid(24) >= 0 {
+            format!("{}:{}",Clock::padding_zero(self.h.rem_euclid(24)),Clock::padding_zero(self.m))
         }else{
-            format!("{}:{}", Clock::padding_zero(hour),Clock::padding_zero(minute))
+            format!("{}:{}", Clock::padding_zero(self.h),Clock::padding_zero(self.m))
         }
     }
 
