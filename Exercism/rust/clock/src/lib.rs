@@ -3,28 +3,20 @@ use std::fmt;
 const RHS_HOURS: i32 = 24;
 const RHS_MINUTES: i32 = 60;
 
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Clock {
     h: i32,
-    m: i32
+    m: i32,
 }
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
-
-        let mut h = hours + minutes.div_euclid(RHS_MINUTES);
-
-        let m = minutes.rem_euclid(RHS_MINUTES);
-
-        h = match h.checked_rem_euclid(RHS_HOURS) {
-            Some(result_hour) => result_hour,
-            _ => 0
-        };
-        
-        Clock { 
-            h: h, 
-            m: m
+        Clock {
+            h: match (hours + minutes.div_euclid(RHS_MINUTES)).checked_rem_euclid(RHS_HOURS) {
+                Some(result_hour) => result_hour,
+                _ => 0,
+            },
+            m: minutes.rem_euclid(RHS_MINUTES),
         }
     }
 
