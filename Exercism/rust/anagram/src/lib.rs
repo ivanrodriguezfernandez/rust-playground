@@ -5,9 +5,7 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a[&str]) -> HashSet<&'a
     let mut result = HashSet::new();
 
     for i in 0..possible_anagrams.len(){
-        println!("{}--{}",&possible_anagrams[i], &word);
-        if &possible_anagrams[i].to_lowercase() != &word.to_lowercase(){
-            println!("eres un broncas");
+        if possible_anagrams[i].to_lowercase() != word.to_lowercase(){
             if  ordering(&possible_anagrams[i].to_lowercase()) == ordering(&word.to_lowercase()) {
                 let m = possible_anagrams[i];
                 result.insert(m);
