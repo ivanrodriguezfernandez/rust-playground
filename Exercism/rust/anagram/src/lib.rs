@@ -2,13 +2,16 @@ use std::{collections::HashSet, iter::FromIterator};
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a[&str]) -> HashSet<&'a str> {
     
-    let word_prepared = ordering(&word.to_lowercase());
     let mut result = HashSet::new();
 
     for i in 0..possible_anagrams.len(){
-        if  ordering(&possible_anagrams[i].to_lowercase()) == word_prepared {
-            let m = possible_anagrams[i].clone();
-            result.insert(m);
+        println!("{}--{}",&possible_anagrams[i], &word);
+        if &possible_anagrams[i].to_lowercase() != &word.to_lowercase(){
+            println!("eres un broncas");
+            if  ordering(&possible_anagrams[i].to_lowercase()) == ordering(&word.to_lowercase()) {
+                let m = possible_anagrams[i];
+                result.insert(m);
+            }
         }
     }
     return result;
