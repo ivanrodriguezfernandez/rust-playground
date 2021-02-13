@@ -8,13 +8,14 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&str]) -> HashSet<&'
 
     for item in possible_anagrams.iter() {
         let item_lower = to_lower_chars(item);
-        if item_lower.len() != word_lower.len() || item_lower == word_lower {
-            continue;
-        }
-        let mut item_sorted = item_lower.to_vec();
-        item_sorted.sort_unstable();
-        if item_sorted == word_sorted {
-            result.insert(*item);
+
+        if item_lower.len() == word_lower.len() && item_lower != word_lower {
+            let mut item_sorted = item_lower.to_vec();
+            item_sorted.sort_unstable();
+
+            if item_sorted == word_sorted {
+                result.insert(item.to_owned());
+            }
         }
     }
     result
