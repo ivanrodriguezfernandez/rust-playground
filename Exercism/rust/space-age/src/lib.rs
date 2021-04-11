@@ -38,7 +38,6 @@ impl_planet_trait!(Mercury, 0.2408467);
 impl_planet_trait!(Venus, 0.61519726);
 impl_planet_trait!(Earth, 1.00000000);
 impl_planet_trait!(Mars, 1.8808158);
-
 impl_planet_trait!(Jupiter, 11.862615);
 impl_planet_trait!(Saturn, 29.447498);
 impl_planet_trait!(Uranus, 84.016846);
