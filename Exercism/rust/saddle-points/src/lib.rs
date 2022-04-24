@@ -14,49 +14,32 @@ pub fn find_saddle_points(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
     6 6 7
     */
 
-    #[derive(Debug)]
-    struct Position {
-        row: i32,
-        col: i32,
-    }
+    // row, col
 
-    let mut per_row_max: Vec<Position> = Vec::new();
-    let mut per_col_min: Vec<Position> = Vec::new();
-
-    for (pos, e) in input.iter().enumerate() {
-        println!("Element at position {}: {:?}", pos, e);
-        // Give max value from row
-        
-        let index = input[pos]
-            .iter()
-            .position(|&r| r == input[pos].iter().max().unwrap().clone())
-            .unwrap();
-        
-        per_row_max.push(Position {
-            col: index as i32,
-            row: pos as i32,
-        });
-    }
+    let per_row_max: Vec<(i32,i32)> = input
+        .iter()
+        .enumerate().map(|(x , y)| (x as i32, y.iter().position(|&r| r == y.iter().max().unwrap().clone())
+        .unwrap() as i32)).collect();
 
     println!("Per row max {:?}", per_row_max);
 
     let mut array_col: Vec<u32> = Vec::new();
 
+    let mut per_col_min: Vec<(i32,i32)> = Vec::new();
+    
     for col in 0..number_of_cols {
         for row in 0..number_of_rows {
             let aux = input[row][col];
             array_col.push(aux as u32);
         }
-        let result_min = array_col.iter().min().unwrap();
+        
         let index = array_col
             .iter()
-            .position(|&r| r == result_min.clone())
+            .position(|&r| r == array_col.iter().min().unwrap().clone())
             .unwrap();
 
-        per_col_min.push(Position {
-            col: col as i32,
-            row: index as i32,
-        });
+        per_col_min.push((index as i32, col as i32));
+
         array_col = [].to_vec();
     }
 
@@ -68,11 +51,11 @@ pub fn find_saddle_points(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
         println!("Vec is {:?}", vec);
         let aux = per_row_max
             .iter()
-            .filter(|&n| n.col == vec.col && n.row == vec.row)
+            .filter(|&n| n.1 == vec.1 && n.0 == vec.0)
             .count();
         println!("Aux is {}", aux);
         if aux > 0 {
-            saddle_points.push((vec.row as usize, vec.col as usize));
+            saddle_points.push((vec.0 as usize, vec.1 as usize));
         }
     }
     return saddle_points;
