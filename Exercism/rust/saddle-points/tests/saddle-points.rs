@@ -28,7 +28,6 @@ fn identify_lack_of_saddle_point() {
 }
 
 #[test]
-#[ignore]
 fn multiple_saddle_points_in_col() {
     let input = vec![vec![4, 5, 4], vec![3, 5, 5], vec![1, 5, 4]];
     assert_eq!(
@@ -48,7 +47,6 @@ fn multiple_saddle_points_in_row() {
 }
 
 #[test]
-#[ignore]
 fn identify_bottom_right_saddle_point() {
     let input = vec![vec![8, 7, 9], vec![6, 7, 6], vec![3, 2, 5]];
     assert_eq!(vec![(2, 2)], find_saddle_points(&input));
@@ -56,7 +54,6 @@ fn identify_bottom_right_saddle_point() {
 
 // track specific as of v1.3
 #[test]
-#[ignore]
 fn non_square_matrix_high() {
     let input = vec![vec![1, 5], vec![3, 6], vec![2, 7], vec![3, 8]];
     assert_eq!(vec![(0, 1)], find_saddle_points(&input));
